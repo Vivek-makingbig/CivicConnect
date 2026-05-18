@@ -1,13 +1,22 @@
 const  sendAlert= require('../models/admin/sendAlert'); 
 
+
 // Create a new alert
 const createAlert = async (req, res) => {
     try {
         const { alertMessage } = req.body;
-        const newAlert = await sendAlert.create({ alertMessage });
+        const district_admin = req.user.district; 
+
+        const newAlert = await sendAlert.create({ 
+            alertMessage, 
+            district: district_admin 
+        });
+
         res.status(201).json(newAlert);
+
     } catch (error) {
-        console.log("Error occured while creating alert message")
+        console.log("Error occured while creating alert message");
+        console.log(error.message);
         res.status(500).json({ error: error.message });
     }
 };
@@ -15,7 +24,8 @@ const createAlert = async (req, res) => {
 // Get all alerts
 const getAllAlerts = async (req, res) => {
     try {
-        const alerts = await sendAlert.find().sort({ createdAt: -1 }); // Newest first
+        const userDistrict = req.user.district;
+        const alerts = await sendAlert.find({district: userDistrict}).sort({ createdAt: -1 }); // Newest first
         res.status(200).json(alerts);
     } catch (error) {
         console.log("Error occured while displaying the alert messages")

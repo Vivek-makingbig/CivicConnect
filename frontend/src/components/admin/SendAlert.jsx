@@ -3,11 +3,12 @@ import {createAlert} from '../../api';
 
 function SendAlert() {
   const [alertMessage,setAlertMessage] = useState("");
+  const [district,setAlertDistrict] = useState("");
   const handleAlertMessage = async (e) => {
     e.preventDefault();
     try
     {
-       const res = await createAlert({alertMessage});
+       const res = await createAlert({alertMessage,district});
        alert("Alert message sent");
        console.log(res);
        setAlertMessage("");
@@ -28,6 +29,7 @@ function SendAlert() {
 
         <textarea value={alertMessage}
           onChange={(e) => setAlertMessage(e.target.value)} placeholder="Write emergency alert message"></textarea>
+          <input type="text" value={district} onChange={(e)=>setAlertDistrict(e.target.value)} placeholder="Enter district" />
 
         <button type="submit"  >Send Alert</button>
 
