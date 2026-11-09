@@ -29,6 +29,72 @@ const createReport = async (req, res) => {
 };
 
 
+// Handle Community Voting (Upvote / Downvote)
+const handleVote = async (req, res) => {
+  try {
+    const { reportId, action } = req.body; // action: "upvote" or "downvote"
+    const userId = req.User.id;            // Matches your authentication property
+
+    const report = await ReportDisaster.findById(reportId);
+    if (!report) {
+      return res.status(404).json({ message: "Report not found" });
+    }
+
+    // Algorithmic check: Has this user already interacted with this report?
+    const hasUpvoted = report.upvotedUsers.includes(userId);
+    const hasDownvoted = report.downvotedUsers.includes(userId);
+
+    if (action === "upvote") {
+      if (hasUpvoted) {
+        // Toggle Off: Remove user and decrease upvote count by 1
+        report.upvotedUsers.pull(userId);
+        report.upvoteCount = Math.max(0, report.upvoteCount - 1);
+      } else {
+        // Switch Sides: Remove from downvotes if they are moving to upvotes
+        if (hasDownvoted) {
+          report.downvotedUsers.pull(userId);
+          report.downvoteCount = Math.max(0, report.downvoteCount - 1);
+        }
+        // Add user to upvotes and increase count
+        report.upvotedUsers.push(userId);
+        report.upvoteCount += 1;
+      }
+    } 
+    
+    else if (action === "downvote") {
+      if (hasDownvoted) {
+        // Toggle Off: Remove user and decrease downvote count by 1
+        report.downvotedUsers.pull(userId);
+        report.downvoteCount = Math.max(0, report.downvoteCount - 1);
+      } else {
+        // Switch Sides: Remove from upvotes if they are moving to downvotes
+        if (hasUpvoted) {
+          report.upvotedUsers.pull(userId);
+          report.upvoteCount = Math.max(0, report.upvoteCount - 1);
+        }
+        // Add user to downvotes and increase count
+        report.downvotedUsers.push(userId);
+        report.downvoteCount += 1;
+      }
+    } 
+    
+    else {
+      return res.status(400).json({ message: "Invalid action. Use 'upvote' or 'downvote'." });
+    }
+
+    await report.save();
+
+    res.status(200).json({ 
+      message: `Successfully processed ${action}`, 
+      upvoteCount: report.upvoteCount,
+      downvoteCount: report.downvoteCount
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Error updating vote counters", error: error.message });
+  }
+};
+
 // Get All Reports (for admin)
 const getAllReports = async (req, res) => {
   try {
@@ -103,6 +169,7 @@ const deleteReport = async (req, res) => {
 
 module.exports = {
   createReport,
+  handleVote,
   getAllReports,
   getMyReports,
   updateReportStatus,

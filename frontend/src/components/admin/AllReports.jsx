@@ -178,6 +178,8 @@ function AllReports() {
               <div className="report-details">
                 <strong>{report.disasterType}</strong>
                 <p>{report.location}</p>
+                <p>Upvotes : {report.upvoteCount}</p>
+                <p>Downvotes : {report.downvoteCount}</p>
 
                 <span className={`status ${(report.status || "pending").toLowerCase()}`}>
                   {report.status || "Pending"}

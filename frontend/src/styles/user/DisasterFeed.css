@@ -19,5 +19,6 @@
   height: 2.8vw;
   border-radius: 3px;
   justify-content: inline;
+  border-color: red;
   /* justify-items: center; */
 }

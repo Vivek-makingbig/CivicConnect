@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true,
-});
+const API = axios.create(
+    { 
+        baseURL: "http://localhost:5000",
+         withCredentials: true,
+    });
 
 export const login = (data) => API.post("/auth/login", data);
 export const register = (data) => API.post("/auth/register", data);
@@ -17,6 +18,10 @@ export const getmydisasterReport = ()=>API.get("/report/myreports")
 
 //Get all disaster reports for admin
 export const getAllReports = ()=>API.get('/report/all');
+
+// Voting on a disaster report
+export const voteReport = (reportId, action) => API.patch("/report/vote", { reportId, action });
+
 
 //Update status of disaster report
 export const updateReport = (id,data)=>API.patch(`/report/updatereport/${id}`,data);

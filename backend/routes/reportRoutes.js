@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {
   createReport,
+  handleVote,
   getAllReports,
   getMyReports,
   updateReportStatus,
@@ -13,6 +14,10 @@ const {authMiddleware} = require("../controllers/auth-controller");
 
 // User reports disaster
 router.post("/report", authMiddleware, createReport);
+
+//User can vote
+router.patch("/vote", authMiddleware, handleVote);
+
 
 // Admin can see all reports
 router.get("/all", authMiddleware, getAllReports);

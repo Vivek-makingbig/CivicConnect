@@ -1,9 +1,9 @@
-.emergency-contacts {
+/* .emergency-contacts {
   display: flex;
   flex-direction: column;
 }
 
-/* scroll container */
+
 
 .contact-grid {
   display: grid;
@@ -15,7 +15,7 @@
   padding-right: 6px;
 }
 
-/* card */
+
 
 .contact {
   padding: 15px;
@@ -26,7 +26,7 @@
   cursor: pointer;
 }
 
-/* text */
+
 
 .contact h4 {
   margin: 0;
@@ -39,7 +39,7 @@
   font-weight: bold;
 }
 
-/* colors */
+
 
 .contact.police {
   background: #2563eb;
@@ -73,7 +73,6 @@
   background: #64748b;
 }
 
-/* scrollbar */
 
 .contact-grid::-webkit-scrollbar {
   width: 6px;
@@ -82,4 +81,7 @@
 .contact-grid::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
-}
+} */
+
+
+

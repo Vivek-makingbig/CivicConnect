@@ -18,6 +18,7 @@
   padding: 12px 15px;
   border-radius: 6px;
   background: rgb(227, 225, 225);
+  
 }
 
 .report strong {
@@ -42,7 +43,7 @@
 }
 
 .report-list::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #f6ebeb;
   border-radius: 4px;
 }
 

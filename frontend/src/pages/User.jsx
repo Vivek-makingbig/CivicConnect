@@ -4,7 +4,7 @@ import Topbar from "../components/user/Topbar";
 import ReportDisaster from "../components/user/ReportDisaster";
 import DisasterFeed from "../components/user/DisasterFeed";
 import MyReports from "../components/user/MyReports";
-import EmergencyContacts from "../components/user/EmergencyContacts";
+import AllReportsForUser from "../components/user/AllReportsForUser";
 
 import "../styles/user/user.css";
 
@@ -29,7 +29,7 @@ function User() {
 
             <MyReports />
 
-            <EmergencyContacts />
+            <AllReportsForUser />
 
 
           </div>

@@ -149,7 +149,7 @@
   color: black;
 }
 
-.helpline-grid{
+ .helpline-grid{
   margin-top:20px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -160,7 +160,7 @@
   background:#fef3c7;
   padding:15px;
   border-radius:6px;
-} 
+}  
 
 
 /* footer */

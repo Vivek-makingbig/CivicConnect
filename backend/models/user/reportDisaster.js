@@ -27,7 +27,13 @@ const reportDisasterSchema = new mongoose.Schema({
     type: String,
     enum: ["Pending", "In progress", "Team assigned", "Resolved"], 
     default: "Pending"
-  }
+  },
+
+  // voting system
+  upvotedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  downvotedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  upvoteCount: { type: Number, default: 0 },
+  downvoteCount: { type: Number, default: 0 }
 
 }, { timestamps: true });
 
