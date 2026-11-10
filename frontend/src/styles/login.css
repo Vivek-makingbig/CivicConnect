@@ -1,113 +1,135 @@
 
 
-/* Full-width heading */
+/* Welcome heading */
 #Welcome_login {
-  color: black;
+  color: #f1f5f9;
   text-align: center;
-  font-size: 2.8rem;
+  font-size: 2.1rem;
   font-weight: 600;
-   margin-left: 24vw;
-    position: relative;
+  margin: 28px 0 35px;
+  letter-spacing: -0.5px;
 }
 
 /* Back to home button */
 #back_to_home {
   display: block;
   width: fit-content;
-  margin: 20px auto;
+  margin: 22px auto 0;
   padding: 10px 20px;
-  background-color: #04aa6d;
-  color: #ffffff;
+  background: #26364a;
+  color: #dbe4ef;
+  border: 1px solid #526176;
   border-radius: 6px;
   text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
-  margin-left: 7.9vw;
+  transition: 0.2s ease;
 }
 
 #back_to_home:hover {
-  background-color: #039f63;
+  background: #35465b;
+  border-color: #718096;
 }
 
 /* Login card */
 .login-container {
-  width: 360px;
-  padding: 24px;
-  margin: 60px auto;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  margin-left: 32vw;
+  width: 450px;
+  max-width: calc(100% - 40px);
+  padding: 30px 32px;
+  margin: 35px auto;
+  background: #1e293b;
+  border: 1px solid #3b4b60;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
 }
 
 /* Labels */
 .login-container label {
-  font-size: 14px;
-  color: #333;
   display: block;
-  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 9px;
 }
 
 /* Inputs */
-input[type="text"],
-input[type="password"] {
-  width: 91%;
-  padding: 10px 12px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.login-container input[type="text"],
+.login-container input[type="password"],
+.login-container input[type="email"] {
+  display: block;
+  width: 100%;
+  padding: 13px 14px;
+  margin-bottom: 22px;
+  background: #182538;
+  color: #f1f5f9;
+  border: 1px solid #526176;
+  border-radius: 7px;
   font-size: 14px;
+  box-sizing: border-box;
   outline: none;
-  transition: 0.3s;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
-  border-color: #04aa6d;
-  box-shadow: 0 0 4px rgba(4, 170, 109, 0.3);
+.login-container input:focus {
+  border-color: #e87935;
+  background: #1b2a3e;
+}
+
+.login-container input::placeholder {
+  color: #8292a8;
 }
 
 /* Login button */
-button {
-    width: 44%;
-    padding: 12px;
-    background-color: #04aa6d;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-left: 7vw;
-    height: 2.5vw;
+.login-container button {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin: 5px 0 0;
+  height: auto;
+  background: #e66b20;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-button:hover {
-  background-color: #039f63;
+.login-container button:hover {
+  background: #d15e19;
 }
 
-/* Cancel button (if used) */
-.cancelbtn {
-  background-color: #f44336;
+/* Cancel button */
+.login-container .cancelbtn {
+  background: #475569;
+}
+
+.login-container .cancelbtn:hover {
+  background: #64748b;
 }
 
 /* Password text */
-span.psw {
+.login-container span.psw {
   display: block;
-  margin-top: 12px;
+  margin-top: 15px;
   text-align: right;
   font-size: 13px;
+  color: #aab7c7;
 }
 
 /* Responsive */
 @media (max-width: 480px) {
-  .login-container {
-    width: 90%;
-    margin: 40px auto;
+  #Welcome_login {
+    font-size: 1.7rem;
+    margin: 25px 0;
   }
 
-  #Welcome_login {
-    font-size: 1.4rem;
+  .login-container {
+    padding: 25px 22px;
+    margin: 25px auto;
   }
 }

@@ -19,18 +19,33 @@ const navigate = useNavigate();
      }
     }
   return (
-    <div className="topbar">
+    // <div className="topbar">
 
-      <div className="welcome">
-        <h3>Logo</h3>
-        <h2>Report incidents and stay updated with emergency alerts.</h2>
-      </div>
+    //   <div className="welcome">
+    //     <h3>Logo</h3>
+    //     <h2>Report incidents and stay updated with emergency alerts.</h2>
+    //   </div>
 
-      <button className="logout-btn" onClick={handleLogout}>
-        Logout
-      </button>
+    //   <button className="logout-btn" onClick={handleLogout}>
+    //     Logout
+    //   </button>
 
-    </div>
+    // </div>
+
+
+<div className="topbar">
+
+  <div className="welcome">
+    <h3>Civic<span>Connect</span></h3>
+    <p>Report incidents and stay updated with emergency alerts.</p>
+  </div>
+
+  <button className="logout-btn" onClick={handleLogout}>
+    Logout
+  </button>
+
+</div>
+
   );
 }
 

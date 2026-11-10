@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../styles/user/AllReportsForUser.css";
-// Added voteReport to your API imports
+
 import { getAllReports, voteReport } from '../../api';
 
 function AllReportsForUser() {
@@ -25,16 +25,16 @@ function AllReportsForUser() {
     fetchReports();
   }, []);
 
-  // Algorithmic handler to send action to backend and update local state arrays
+ 
   const handleVoteAction = async (reportId, action) => {
     try {
-      // 1. Send the action to your Mongoose/Express database
+     
       const response = await voteReport(reportId, action);
 
-      // 2. Extract the fresh structural counts returned by your controller
+      
       const { upvoteCount, downvoteCount } = response.data;
 
-      // 3. Immutably map through the state to update ONLY the modified report card
+      
       setReports((prevReports) =>
         prevReports.map((report) => {
           const id = report._id || report.id;
@@ -73,7 +73,7 @@ function AllReportsForUser() {
                   <p>Reporting date: {report.createdAt ? new Date(report.createdAt).toLocaleDateString() : 'N/A'}</p>
                   <p>Report status: {report.status}</p>
 
-                  {/* Dynamic counts mapped straight from database fields */}
+                 
                   <div className="voting-stats" style={{ margin: "10px 0" }}>
                     <p>
                       ▲ <strong>
@@ -82,7 +82,7 @@ function AllReportsForUser() {
                     </p>
                   </div>
 
-                  {/* Inline arrow wrappers pass contextual report context back to backend */}
+                
                   <div className="vote-actions" style={{ display: 'flex', gap: '8px' }}>
                     <button onClick={() => handleVoteAction(currentReportId, "upvote")}>
                       Upvote
@@ -104,3 +104,5 @@ function AllReportsForUser() {
 }
 
 export default AllReportsForUser;
+
+

@@ -7,7 +7,7 @@ import "../styles/admin.css";
 
 function Admin() {
   return (
-    <div className="dashboard">
+    <div className="admin-dashboard">
 
       <div className="main">
 

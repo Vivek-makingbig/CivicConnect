@@ -8,6 +8,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Admin from './pages/Admin'
 import Topbar from './components/rescue/Topbar'
+import HowItWorks from './pages/HowItWorks'
 
 
 
@@ -20,6 +21,7 @@ function App() {
 
    <Routes>
     <Route path="/" element={<Home />} />
+    <Route path="/HowItWorks" element={<HowItWorks />} />
        <Route path="/login" element={<Login setRole={setRole}/>} />
    
      <Route path="/register" element={<Register />} />

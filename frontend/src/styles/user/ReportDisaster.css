@@ -1,4 +1,4 @@
-#disaster-type,
+/* #disaster-type,
 #location,
 #file
 {
@@ -25,7 +25,7 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  resize: vertical;   /* allows only vertical resizing */
+  resize: vertical;   
   box-sizing: border-box;
   margin-top: -1vw;
 }
@@ -39,4 +39,67 @@
 
 #submit-button:hover {
   background-color: #ea580c;
+} */
+
+
+
+#disaster-type,
+#location,
+#file {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  background-color: #182538;
+  color: #f1f5f9;
+  border: 1px solid #526176;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  outline: none;
+}
+
+#disaster-type:focus,
+#location:focus,
+#describe-situation:focus {
+  border-color: #e87935;
+}
+
+#describe-situation {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px;
+  margin-bottom: 18px;
+  background-color: #182538;
+  color: #f1f5f9;
+  border: 1px solid #526176;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+}
+
+#describe-situation::placeholder,
+#location::placeholder {
+  color: #8292a8;
+}
+
+#submit-button {
+  display: block;
+  width: 180px;
+  padding: 12px;
+  margin: 10px auto;
+  background-color: #e66b20;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#submit-button:hover {
+  background-color: #cc5b18;
 }

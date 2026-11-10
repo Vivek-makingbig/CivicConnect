@@ -18,16 +18,32 @@ function Topbar() {
     
   }
   return (
-    <div className="topbar">
+    // <div className="topbar">
 
-      <h3>Admin Dashboard</h3>
+    //   <h3>Admin Dashboard</h3>
 
-      <div className="profile">
-        <span>Welcome, Admin</span>
-        <button className="logout-btn" onClick={handleLogout} >Logout</button>
-      </div>
+    //   <div className="profile">
+    //     <span>Welcome, Admin</span>
+    //     <button className="logout-btn" onClick={handleLogout} >Logout</button>
+    //   </div>
 
-    </div>
+    // </div>
+
+<div className="topbar">
+
+  <h3 className="admin-brand">
+    Civic<span>Connect</span>
+  </h3>
+
+  <div className="profile">
+    <span>Welcome, Admin</span>
+    <button className="logout-btn" onClick={handleLogout}>
+      Logout
+    </button>
+  </div>
+
+</div>
+
   );
 }
 
