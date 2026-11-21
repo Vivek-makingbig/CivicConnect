@@ -1,11 +1,23 @@
-import React from "react";
-
+import React,{useState,useEffect} from "react";
+import { getReportStats } from "../api"; 
 import { Link } from 'react-router-dom';
 
 import "../styles/home.css";
 import logo from '../assets/logo.jpg';
 
+
+
 function Home() {
+
+  {/* Get statistics  */ }
+ const [stats, setStats] = useState({ total: 0, solved: 0, pending: 0 });
+
+useEffect(() => {
+  getReportStats().then((res) => setStats(res.data));
+}, []);
+
+
+
   return (
     <div className="landing">
 
@@ -91,17 +103,17 @@ function Home() {
 
             <div className="stat-card total">
               <h3>Total Reports</h3>
-              <p>120</p>
+              <p>{stats.total}</p>
             </div>
 
             <div className="stat-card solved">
               <h3>Solved Reports</h3>
-              <p>85</p>
+              <p>{stats.solved}</p>
             </div>
 
             <div className="stat-card pending">
               <h3>Pending Reports</h3>
-              <p>35</p>
+              <p>{stats.pending}</p>
             </div>
 
           </div>

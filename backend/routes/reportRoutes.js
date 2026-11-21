@@ -4,6 +4,8 @@ const router = express.Router();
 const {
   createReport,
   handleVote,
+  getReportStats,
+  getAssignedMissions,
   getAllReports,
   getMyReports,
   updateReportStatus,
@@ -11,13 +13,21 @@ const {
 } = require("../controllers/reportController");
 
 const {authMiddleware} = require("../controllers/auth-controller");
+const upload = require("../middleware/upload");
 
 // User reports disaster
-router.post("/report", authMiddleware, createReport);
+
+router.post("/report", authMiddleware, upload.single("image"), createReport);
 
 //User can vote
 router.patch("/vote", authMiddleware, handleVote);
 
+
+// Public platform statistics
+router.get("/stats", getReportStats);
+
+//To get reports with status = team assigned / in progress
+router.get("/assigned", authMiddleware, getAssignedMissions);
 
 // Admin can see all reports
 router.get("/all", authMiddleware, getAllReports);

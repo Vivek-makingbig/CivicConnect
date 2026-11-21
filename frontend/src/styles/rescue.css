@@ -68,12 +68,75 @@ body {
 
 /* Cards */
 
-.card {
+/* .card {
   background: white;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #e5e7eb;
+} */
+
+
+
+
+.card {
+  background: #161b22;
+  padding: 22px;
+  border-radius: 12px;
+  /* border: 1px solid #2479da; */
+  color: #e6edf3;
 }
+
+.card h3 {
+  font-size: 19px;
+  font-weight: 600;
+  color: #f0f6fc;
+  margin-bottom: 20px;
+}
+
+.notice-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+
+.mission-details {
+  display: block;
+  width: 100%;
+}
+.mission-item {
+  background: #1c232d;
+  border: 1px solid #343d49;
+  border-bottom: 2px solid #475569;
+  border-radius: 10px;
+  padding: 18px 30px;
+}
+
+.otp-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 15px;
+  padding-top: 14px;
+  /* border-top: 1px solid #343d49; */
+}
+
+.otp-section label {
+  flex: 1;
+}
+
+.otp-section input {
+  width: 180px;
+}
+
+.otp-section button {
+  padding: 11px 20px;
+}
+
+
+
 
 /* Notice Containers */
 
@@ -88,8 +151,8 @@ body {
 .mission-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+  padding: 8px 27px;
+  /* border-bottom: 1px solid #eee; */
 }
 
 /* Status Tags */

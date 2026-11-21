@@ -184,6 +184,13 @@ function AllReports() {
                 <span className={`status ${(report.status || "pending").toLowerCase()}`}>
                   {report.status || "Pending"}
                 </span>
+                {report.imageUrl && (
+                  <img
+                    src={report.imageUrl}
+                    alt="Reported disaster"
+                    className="report-image"
+                  />
+                )}
               </div>
 
               <div className="actions">

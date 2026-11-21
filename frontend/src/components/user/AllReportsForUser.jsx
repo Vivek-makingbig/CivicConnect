@@ -25,16 +25,16 @@ function AllReportsForUser() {
     fetchReports();
   }, []);
 
- 
+
   const handleVoteAction = async (reportId, action) => {
     try {
-     
+
       const response = await voteReport(reportId, action);
 
-      
+
       const { upvoteCount, downvoteCount } = response.data;
 
-      
+
       setReports((prevReports) =>
         prevReports.map((report) => {
           const id = report._id || report.id;
@@ -72,8 +72,7 @@ function AllReportsForUser() {
                   <p>Report location: {report.location}</p>
                   <p>Reporting date: {report.createdAt ? new Date(report.createdAt).toLocaleDateString() : 'N/A'}</p>
                   <p>Report status: {report.status}</p>
-
-                 
+                  
                   <div className="voting-stats" style={{ margin: "10px 0" }}>
                     <p>
                       ▲ <strong>
@@ -82,7 +81,7 @@ function AllReportsForUser() {
                     </p>
                   </div>
 
-                
+
                   <div className="vote-actions" style={{ display: 'flex', gap: '8px' }}>
                     <button onClick={() => handleVoteAction(currentReportId, "upvote")}>
                       Upvote
@@ -91,6 +90,14 @@ function AllReportsForUser() {
                       Downvote
                     </button>
                   </div>
+
+                  {report.imageUrl && (
+                    <img
+                      src={report.imageUrl}
+                      alt="Reported disaster"
+                      className="report-image"
+                    />
+                  )}
                 </div>
               </div>
             );

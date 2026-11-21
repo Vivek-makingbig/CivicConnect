@@ -1,16 +1,40 @@
 const ReportDisaster = require("../models/user/reportDisaster");
+const cloudinary = require("../config/cloudinary");
 
 // Create Report
 const createReport = async (req, res) => {
   try {
 
-    const { disasterType, location, description } = req.body;
+    const { disasterType, location, description} = req.body;
+
+    //for image upload
+    let imageUrl = "";
+let imagePublicId = "";
+
+if (req.file) {
+  const result = await new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "local-problems" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+
+    stream.end(req.file.buffer);
+  });
+
+  imageUrl = result.secure_url;
+  imagePublicId = result.public_id;
+}
 
     const report = new ReportDisaster({
       disasterType,
       location,
       description,
-      reportedBy: req.User.id
+      reportedBy: req.User.id,
+      imageUrl,
+      imagePublicId,
     });
 
     await report.save();
@@ -95,6 +119,35 @@ const handleVote = async (req, res) => {
   }
 };
 
+
+
+//get the report statistics on basis of status
+const getReportStats = async (req, res) => {
+  try {
+    const total = await ReportDisaster.countDocuments();
+    const solved = await ReportDisaster.countDocuments({ status: "Resolved" });
+    const pending = total - solved;
+
+    res.json({ total, solved, pending });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+//Get reports with team assigned / in progress status
+const getAssignedMissions = async (req, res) => {
+  try {
+    const missions = await ReportDisaster.find({ status: ["Team assigned", "In progress"] });
+    res.json(missions);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
 // Get All Reports (for admin)
 const getAllReports = async (req, res) => {
   try {
@@ -170,6 +223,8 @@ const deleteReport = async (req, res) => {
 module.exports = {
   createReport,
   handleVote,
+  getReportStats,
+  getAssignedMissions,
   getAllReports,
   getMyReports,
   updateReportStatus,

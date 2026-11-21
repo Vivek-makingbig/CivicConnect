@@ -273,3 +273,14 @@
     flex: 1;
   }
 }
+
+
+.report-image {
+  width: 100%;
+  max-width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}

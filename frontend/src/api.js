@@ -13,11 +13,25 @@ export const logout = ()=>API.post('/auth/logout');
 //Reporting disaster
 export const reportDisaster = (data)=> API.post("/report/report",data); 
 
+// export const reportDisaster = (data) =>
+//   API.post("/report/report", data, {
+//     headers: {
+//       "Content-Type": "multipart/form-data"
+//     }
+//   });
+
 //Getting disaster reported by an user
 export const getmydisasterReport = ()=>API.get("/report/myreports")
 
+
+//Get statistics 
+export const getReportStats = () => API.get("/report/stats");
+
 //Get all disaster reports for admin
 export const getAllReports = ()=>API.get('/report/all');
+
+// get reports with status team assigned / in progress
+export const getAssignedMissions = () => API.get("/report/assigned");
 
 // Voting on a disaster report
 export const voteReport = (reportId, action) => API.patch("/report/vote", { reportId, action });

@@ -25,8 +25,17 @@ const reportDisasterSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ["Pending", "In progress", "Team assigned", "Resolved"], 
+    enum: ["Pending", "In progress", "Team assigned", "Resolved"],
     default: "Pending"
+  },
+  imageUrl: {
+    type: String,
+    default: ""
+  },
+
+  imagePublicId: {
+    type: String,
+    default: ""
   },
 
   // voting system

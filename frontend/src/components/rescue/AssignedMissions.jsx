@@ -1,26 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getAssignedMissions } from "../../api";
 
 function AssignedMissions() {
-  return (
-    <div className="card">
 
-      <h3>Assigned Missions</h3>
+  const [missions, setMissions] = useState([]);
 
-      <div className="notice-container">
+  useEffect(() => {
+    getAssignedMissions().then((res) => setMissions(res.data));
+  }, []);
 
-        <div className="mission-item">
-          Flood - Salt Lake
-          <span className="status assigned">Assigned</span>
+
+   return (
+   
+<div className="card">
+  <h3>Assigned Missions</h3>
+
+  <div className="notice-container">
+    {missions.map((m) => (
+      <div className="mission-item" key={m._id}>
+
+        {/* Mission Details */}
+        <div className="mission-details">
+          <p>Issue: {m.disasterType}</p>
+          <p>Location: {m.location}</p>
+          <p>Date: {new Date(m.createdAt).toLocaleDateString()}</p>
         </div>
 
-        <div className="mission-item">
-          Fire - Park Street
-          <span className="status progress">In Progress</span>
+        {/* OTP Section - Second Line */}
+        <div className="otp-section">
+          <label>Enter OTP to mark as completed:</label>
+
+          <input
+            type="text"
+            placeholder="Enter OTP"
+            maxLength={6}
+          />
+
+          <button onClick={() => handleComplete(m._id)}>
+            Submit
+          </button>
         </div>
 
       </div>
+    ))}
+  </div>
+</div>
 
-    </div>
   );
 }
 
