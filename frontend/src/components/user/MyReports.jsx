@@ -36,6 +36,14 @@ function MyReports() {
               <p>{report.location}</p>
               <p>{report.createdAt}</p>
               <p>{report.status}</p>
+
+              {report.otp && (
+                <div className="otp-container">
+                  <h4>Your Verification OTP</h4>
+                  <h2>{report.otp}</h2>
+                  <p>Keep this OTP safe. Share it with the rescuer after the issue is resolved.</p>
+                </div>
+              )}
               {report.imageUrl && (
                 <img
                   src={report.imageUrl}

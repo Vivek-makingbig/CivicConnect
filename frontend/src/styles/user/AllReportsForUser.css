@@ -195,14 +195,19 @@
 /* Upvote */
 
 .vote-actions button:first-child {
-  background: #e66b20;
+  /* background: #e66b20;
   color: white;
-  border: 1px solid #e66b20;
+  border: 1px solid #e66b20; */
+  background: #35465b;
+  color: #e2e8f0;
+  border: 1px solid #526176;
 }
 
 .vote-actions button:first-child:hover {
-  background: #cc5b18;
-  border-color: #cc5b18;
+  /* background: #cc5b18;
+  border-color: #cc5b18; */
+   background: #475569;
+  border-color: #718096;
 }
 
 /* Downvote */

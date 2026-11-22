@@ -145,4 +145,19 @@ const authMiddleware = async (req, res, next) => {
         });
     }
 };
-module.exports = { registerUser, loginUser, logoutUser, authMiddleware };
+
+//middleware for checking the role
+const checkRole = (role) => {
+    return (req, res, next) => {
+        if (req.User.role !== role) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied"
+            });
+        }
+
+        next();
+    };
+};
+
+module.exports = { registerUser, loginUser, logoutUser, authMiddleware,checkRole};

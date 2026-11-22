@@ -191,6 +191,15 @@ function AllReports() {
                     className="report-image"
                   />
                 )}
+
+
+                {report.otp && (
+                  <p>
+                    Verification OTP: <strong>{report.otp}</strong>
+                  </p>
+                )}
+
+
               </div>
 
               <div className="actions">
@@ -203,7 +212,7 @@ function AllReports() {
                   <option value="Pending">Pending</option>
                   <option value="In progress">In progress</option>
                   <option value="Team assigned">Team assigned</option>
-                  <option value="Resolved">Resolved</option>
+                  
                 </select>
 
                 <button

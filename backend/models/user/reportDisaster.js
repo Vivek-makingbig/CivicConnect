@@ -42,7 +42,35 @@ const reportDisasterSchema = new mongoose.Schema({
   upvotedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   downvotedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   upvoteCount: { type: Number, default: 0 },
-  downvoteCount: { type: Number, default: 0 }
+  downvoteCount: { type: Number, default: 0 },
+
+
+
+    // OTP verification system
+  otpEncrypted: {
+    type: String,
+    default: null
+  },
+
+  otpHash: {
+    type: String,
+    default: null
+  },
+
+  otpExpiresAt: {
+    type: Date,
+    default: null
+  },
+
+  otpAttempts: {
+    type: Number,
+    default: 0
+  },
+
+  otpVerified: {
+    type: Boolean,
+    default: false
+  },
 
 }, { timestamps: true });
 

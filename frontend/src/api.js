@@ -49,3 +49,7 @@ export const createAlert = (data)=>API.post('/alert/createalert',data);
 
 //Get all alert messages(user)
 export const getAllAlertMessages = ()=>API.get('/alert/allalerts');
+
+// Verify OTP and complete disaster mission
+export const verifyMissionOTP = (id, otp) =>
+  API.post(`/report/verify-otp/${id}`, { otp });

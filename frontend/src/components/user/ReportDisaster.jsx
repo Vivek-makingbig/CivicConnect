@@ -5,6 +5,7 @@ function ReportDisaster() {
   const [disasterType, setdisasterType] = useState("");
   const [location, setlocation] = useState("");
   const [description, setdescription] = useState("");
+  const [otp, setOtp] = useState("");
 
   //for image upload
   const [image, setImage] = useState(null);
@@ -12,6 +13,7 @@ function ReportDisaster() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setOtp("");
     try {
       // await reportDisaster({ disasterType, location, description });
 
@@ -25,8 +27,11 @@ function ReportDisaster() {
         formData.append("image", image);
       }
 
-      await reportDisaster(formData);
-      alert("Disaster reported successfully");
+      // await reportDisaster(formData);
+      // alert("Disaster reported successfully");
+      const response = await reportDisaster(formData);
+      setOtp(response.data.otp);
+      alert("Disaster reported successfully. Save your OTP.");
       setdisasterType("");
       setlocation("");
       setdescription("");
@@ -115,6 +120,14 @@ function ReportDisaster() {
         <button id="submit-button" type="submit">Submit Report</button>
 
       </form>
+
+      {otp && (
+        <div className="otp-container">
+          <h4>Your Verification OTP</h4>
+          <h2>{otp}</h2>
+          <p>Keep this OTP safe. You will need to share it with the rescuer after the issue is resolved.</p>
+        </div>
+      )}
 
     </div>
   );
