@@ -1,6 +1,7 @@
 const ReportDisaster = require("../models/user/reportDisaster");
 const cloudinary = require("../config/cloudinary");
 const crypto = require("crypto");
+const sendEmail = require("../services/emailService");
 
 // Create Report
 const createReport = async (req, res) => {
@@ -51,6 +52,34 @@ const createReport = async (req, res) => {
 
     await report.save();
 
+
+
+    //Sending mail
+    // Get reporting user's email
+    await report.populate("reportedBy", "userName email");
+
+    // Send confirmation email
+    if (report.reportedBy?.email) {
+      await sendEmail(
+        report.reportedBy.email,
+        "Your disaster report has been received",
+        `Hello ${report.reportedBy.userName},
+
+Your disaster report has been successfully submitted to LocalConnect.
+
+Report Details:
+Disaster Type: ${disasterType}
+Location: ${location}
+Description: ${description}
+Status: Pending
+
+Our team will review your report and take the necessary action.
+
+Thank you for helping make your community safer.
+
+Team LocalConnect`
+      );
+    }
     // Remove sensitive OTP data from response
     const reportData = report.toObject();
 
@@ -267,7 +296,37 @@ const getMyReports = async (req, res) => {
   }
 };
 
-// Update report status(Admin)
+// // Update report status(Admin)
+// const updateReportStatus = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { status } = req.body;
+
+//     if (status === "Resolved") {
+//       return res.status(403).json({
+//         message: "OTP verification is required to resolve a report"
+//       });
+//     }
+
+//     const updatedReport = await ReportDisaster.findByIdAndUpdate(
+//       id,
+//       { status },
+//       { new: true, runValidators: true }
+//     );
+
+//     if (!updatedReport) {
+//       return res.status(404).json({ message: "Report not found" });
+//     }
+
+//     res.status(200).json({ message: "Report Status updated", updatedReport });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error updating status", error: error.message });
+//   }
+// };
+
+
+
+// Update report status (Admin)
 const updateReportStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -279,19 +338,56 @@ const updateReportStatus = async (req, res) => {
       });
     }
 
-    const updatedReport = await ReportDisaster.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true, runValidators: true }
-    );
+    const report = await ReportDisaster.findById(id);
 
-    if (!updatedReport) {
+    if (!report) {
       return res.status(404).json({ message: "Report not found" });
     }
 
-    res.status(200).json({ message: "Report Status updated", updatedReport });
+    // Avoid sending duplicate emails
+    if (report.status === status) {
+      return res.status(200).json({
+        message: "Report status is already up to date",
+        updatedReport: report
+      });
+    }
+
+    report.status = status;
+    await report.save();
+
+    // Get reporting user's details
+    await report.populate("reportedBy", "userName email");
+
+    // Send status update email
+    if (report.reportedBy?.email) {
+      await sendEmail(
+        report.reportedBy.email,
+        "Disaster Report Status Updated - LocalConnect",
+        `Hello ${report.reportedBy.userName},
+
+The status of your disaster report has been updated.
+
+Report Details:
+Disaster Type: ${report.disasterType}
+Location: ${report.location}
+New Status: ${report.status}
+
+Thank you for using LocalConnect.
+
+Team LocalConnect`
+      );
+    }
+
+    res.status(200).json({
+      message: "Report Status updated",
+      updatedReport: report
+    });
+
   } catch (error) {
-    res.status(500).json({ message: "Error updating status", error: error.message });
+    res.status(500).json({
+      message: "Error updating status",
+      error: error.message
+    });
   }
 };
 
@@ -370,6 +466,65 @@ const decryptOTP = (encryptedData) => {
 
 
 // Verify OTP and mark disaster report as resolved
+// const verifyOTP = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { otp } = req.body;
+
+//     if (!otp || !/^\d{4}$/.test(otp)) {
+//       return res.status(400).json({
+//         message: "Please enter a valid 4-digit OTP"
+//       });
+//     }
+
+//     const report = await ReportDisaster.findById(id);
+
+//     if (!report) {
+//       return res.status(404).json({
+//         message: "Report not found"
+//       });
+//     }
+
+//     if (report.status === "Resolved") {
+//       return res.status(400).json({
+//         message: "This mission is already completed"
+//       });
+//     }
+
+//     if (!report.otpHash) {
+//       return res.status(400).json({
+//         message: "OTP not found for this report"
+//       });
+//     }
+
+//     const enteredHash = hashOTP(otp);
+
+//     if (enteredHash !== report.otpHash) {
+//       return res.status(400).json({
+//         message: "Incorrect OTP"
+//       });
+//     }
+
+//     report.status = "Resolved";
+//     report.otpVerified = true;
+
+//     await report.save();
+
+//     res.status(200).json({
+//       message: "Mission completed successfully",
+//       status: report.status
+//     });
+
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Server error",
+//       error: error.message
+//     });
+//   }
+// };
+
+
+// Verify OTP and mark disaster report as resolved
 const verifyOTP = async (req, res) => {
   try {
     const { id } = req.params;
@@ -413,6 +568,29 @@ const verifyOTP = async (req, res) => {
     report.otpVerified = true;
 
     await report.save();
+
+    // Get reporting user's details
+    await report.populate("reportedBy", "userName email");
+
+    // Send resolution confirmation email
+    if (report.reportedBy?.email) {
+      await sendEmail(
+        report.reportedBy.email,
+        "Your Disaster Report Has Been Resolved - LocalConnect",
+        `Hello ${report.reportedBy.userName},
+
+Your disaster report has been successfully resolved.
+
+Report Details:
+Disaster Type: ${report.disasterType}
+Location: ${report.location}
+Status: Resolved
+
+Thank you for helping make your community safer.
+
+Team LocalConnect`
+      );
+    }
 
     res.status(200).json({
       message: "Mission completed successfully",
