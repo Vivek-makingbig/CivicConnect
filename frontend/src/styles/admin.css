@@ -403,6 +403,11 @@ textarea {
   grid-column: 1 / -1;
 }
 
+
+.admin-dashboard .grid-container > .manage-rescuers {
+    grid-column: 1 / -1;
+}
+
 /* =================================
    CARDS
 ================================= */

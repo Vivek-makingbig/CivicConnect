@@ -53,3 +53,20 @@ export const getAllAlertMessages = ()=>API.get('/alert/allalerts');
 // Verify OTP and complete disaster mission
 export const verifyMissionOTP = (id, otp) =>
   API.post(`/report/verify-otp/${id}`, { otp });
+
+
+// Admin: Add rescuer
+export const addRescuer = (data) =>
+    API.post('/api/admin/rescuers', data);
+
+// Admin: Get all rescuers
+export const getAllRescuers = () =>
+    API.get('/api/admin/rescuers');
+
+// Admin: Get rescuer by email
+export const getRescuerByEmail = (email) =>
+    API.get(`/api/admin/rescuers/${encodeURIComponent(email)}`);
+
+// Admin: Delete rescuer
+export const deleteRescuer = (email) =>
+    API.delete(`/api/admin/rescuers/${encodeURIComponent(email)}`);

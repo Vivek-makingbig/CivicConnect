@@ -5,6 +5,7 @@ const connectToDB = require('./database/db');
 const authRoutes = require('./routes/auth-routes');
 const reportRoutes = require('./routes/reportRoutes');
 const alertRoutes = require('./routes/sendAlert');
+const adminRoutes = require('./routes/admin-routes');
 const cors = require('cors');
 
 // Connecting the database
@@ -31,6 +32,7 @@ app.use(cors({
 app.use('/auth',authRoutes);
 app.use('/report',reportRoutes);
 app.use('/alert',alertRoutes);
+app.use('/api/admin', adminRoutes);
 
 const PORT = process.env.port;
 app.listen(PORT,()=>

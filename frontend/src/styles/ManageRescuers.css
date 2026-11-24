@@ -1,0 +1,541 @@
+/* 
+
+
+
+.manage-rescuers h4 {
+    color: #e2e8f0;
+    margin: 18px 0 12px;
+    font-size: 15px;
+}
+
+
+.manage-rescuers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+
+.manage-rescuers > h3 {
+    grid-column: 1 / -1;
+}
+
+
+.rescuer-form {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    background: #26364a;
+    padding: 18px;
+    border: 1px solid #3b4b60;
+    border-radius: 8px;
+    align-content: start;
+    margin: 0;
+}
+
+.rescuer-form h4 {
+    grid-column: 1 / -1;
+}
+
+
+.rescuer-form input,
+.rescuer-search input {
+    width: 100%;
+    padding: 11px 12px;
+    background: #182538;
+    color: #f1f5f9;
+    border: 1px solid #526176;
+    border-radius: 6px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.rescuer-form input:focus,
+.rescuer-search input:focus {
+    border-color: #e87935;
+}
+
+.rescuer-form input::placeholder,
+.rescuer-search input::placeholder {
+    color: #8292a8;
+}
+
+
+.rescuer-form button,
+.rescuer-search button {
+    background: #e66b20;
+    color: white;
+    border: none;
+    padding: 11px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.rescuer-form button {
+    grid-column: 1 / -1;
+}
+
+.rescuer-form button:hover,
+.rescuer-search button:hover {
+    background: #cc5b18;
+}
+
+.rescuer-form button:disabled,
+.rescuer-search button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+.rescuer-search {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 10px;
+    align-items: center;
+    background: #26364a;
+    padding: 18px;
+    border: 1px solid #3b4b60;
+    border-radius: 8px;
+    margin: 0;
+    align-content: start;
+}
+
+.rescuer-search h4 {
+    grid-column: 1 / -1;
+    width: auto;
+}
+
+
+.rescuer-message {
+    grid-column: 1 / -1;
+    color: #fbbf24;
+    font-size: 14px;
+    margin: 0;
+}
+
+
+.rescuer-list {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+    margin-top: 0;
+    box-sizing: border-box;
+}
+
+.rescuer-list h4 {
+    margin-top: 0;
+    position: sticky;
+    top: 0;
+    background: #1e293b;
+    padding: 10px 0;
+    z-index: 1;
+}
+
+
+.rescuer-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #26364a;
+    border: 1px solid #3b4b60;
+    border-radius: 8px;
+}
+
+.rescuer-details {
+    min-width: 0;
+}
+
+.rescuer-details strong {
+    color: #f1f5f9;
+}
+
+.rescuer-details p {
+    color: #aab7c7;
+    font-size: 13px;
+    margin: 6px 0 0;
+    overflow-wrap: anywhere;
+}
+
+
+.rescuer-delete-btn {
+    background: #472d36;
+    color: #fca5a5;
+    border: 1px solid #70404a;
+    flex-shrink: 0;
+}
+
+.rescuer-delete-btn:hover {
+    background: #63343e;
+}
+
+
+.rescuer-list::-webkit-scrollbar {
+    width: 7px;
+}
+
+.rescuer-list::-webkit-scrollbar-track {
+    background: #182538;
+    border-radius: 10px;
+}
+
+.rescuer-list::-webkit-scrollbar-thumb {
+    background: #526176;
+    border-radius: 10px;
+}
+
+.rescuer-list::-webkit-scrollbar-thumb:hover {
+    background: #e66b20;
+}
+
+
+@media (max-width: 700px) {
+    .manage-rescuers {
+        grid-template-columns: 1fr;
+    }
+
+    .rescuer-form,
+    .rescuer-search,
+    .rescuer-list,
+    .rescuer-message {
+        grid-column: 1;
+    }
+
+    .rescuer-search {
+        grid-template-columns: 1fr;
+    }
+
+    .rescuer-form {
+        grid-template-columns: 1fr;
+    }
+
+    .rescuer-form h4,
+    .rescuer-form button {
+        grid-column: 1;
+    }
+
+    .rescuer-card {
+        align-items: flex-start;
+    }
+} */
+
+
+
+
+
+/* Main Manage Rescuers layout */
+.manage-rescuers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* Main heading */
+.manage-rescuers > h3 {
+    grid-column: 1 / -1;
+}
+
+/* Common heading */
+.manage-rescuers h4 {
+    color: #e2e8f0;
+    margin: 18px 0 12px;
+    font-size: 15px;
+}
+
+/* Add Rescuer form */
+.rescuer-form {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    background: #26364a;
+    padding: 18px;
+    border: 1px solid #3b4b60;
+    border-radius: 8px;
+    align-content: start;
+    margin: 0;
+}
+
+.rescuer-form h4 {
+    grid-column: 1 / -1;
+}
+
+/* Input fields */
+.rescuer-form input,
+.rescuer-search input {
+    width: 100%;
+    padding: 11px 12px;
+    background: #182538;
+    color: #f1f5f9;
+    border: 1px solid #526176;
+    border-radius: 6px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.rescuer-form input:focus,
+.rescuer-search input:focus {
+    border-color: #e87935;
+}
+
+.rescuer-form input::placeholder,
+.rescuer-search input::placeholder {
+    color: #8292a8;
+}
+
+/* Form buttons */
+.rescuer-form button,
+.rescuer-search button {
+    background: #e66b20;
+    color: white;
+    border: none;
+    padding: 11px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.rescuer-form button {
+    grid-column: 1 / -1;
+}
+
+.rescuer-form button:hover,
+.rescuer-search button:hover {
+    background: #cc5b18;
+}
+
+.rescuer-form button:disabled,
+.rescuer-search button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Search Rescuer form */
+.rescuer-search {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+    background: #26364a;
+    padding: 18px;
+    border: 1px solid #3b4b60;
+    border-radius: 8px;
+    margin: 0;
+    align-content: start;
+}
+
+.rescuer-search h4 {
+    grid-column: 1 / -1;
+    width: auto;
+}
+
+/* Message */
+.rescuer-message {
+    grid-column: 1 / -1;
+    color: #fbbf24;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* All Rescuers section */
+.rescuer-list {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: 0;
+    min-width: 0;
+}
+
+/* All Rescuers heading and toggle button */
+.rescuer-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.rescuer-list-header h4 {
+    margin: 0;
+}
+
+/* Show All / Hide All button */
+.show-all-btn {
+    background: #e66b20;
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.show-all-btn:hover {
+    background: #cc5b18;
+}
+
+/* Scrollable rescuer items */
+.rescuer-items {
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+}
+
+/* Individual rescuer card */
+.rescuer-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #26364a;
+    border: 1px solid #3b4b60;
+    border-radius: 8px;
+}
+
+.rescuer-details {
+    min-width: 0;
+}
+
+.rescuer-details strong {
+    color: #f1f5f9;
+}
+
+.rescuer-details p {
+    color: #aab7c7;
+    font-size: 13px;
+    margin: 6px 0 0;
+    overflow-wrap: anywhere;
+}
+
+/* Delete button */
+.rescuer-delete-btn {
+    background: #472d36;
+    color: #fca5a5;
+    border: 1px solid #70404a;
+    flex-shrink: 0;
+}
+
+.rescuer-delete-btn:hover {
+    background: #63343e;
+}
+
+/* Scrollbar styling */
+.rescuer-items::-webkit-scrollbar {
+    width: 7px;
+}
+
+.rescuer-items::-webkit-scrollbar-track {
+    background: #182538;
+    border-radius: 10px;
+}
+
+.rescuer-items::-webkit-scrollbar-thumb {
+    background: #526176;
+    border-radius: 10px;
+}
+
+.rescuer-items::-webkit-scrollbar-thumb:hover {
+    background: #e66b20;
+}
+
+/* Responsive layout */
+@media (max-width: 700px) {
+
+    .manage-rescuers {
+        grid-template-columns: 1fr;
+    }
+
+    .rescuer-form,
+    .rescuer-search,
+    .rescuer-list,
+    .rescuer-message {
+        grid-column: 1;
+    }
+
+    .rescuer-form {
+        grid-template-columns: 1fr;
+    }
+
+    .rescuer-form h4,
+    .rescuer-form button {
+        grid-column: 1;
+    }
+
+    .rescuer-search {
+        grid-template-columns: 1fr;
+    }
+
+    .rescuer-card {
+        align-items: flex-start;
+    }
+}
+
+
+
+/* rescuer search  */
+/* .search-result {
+    grid-column: 1 / -1;
+    margin-top: 12px;
+    padding: 15px;
+    background: #182538;
+    border: 1px solid #526176;
+    border-radius: 8px;
+}
+
+.search-result h4 {
+    margin: 0 0 12px;
+    color: #e87935;
+}
+
+.search-result strong {
+    color: #f1f5f9;
+}
+
+.search-result p {
+    color: #aab7c7;
+    font-size: 13px;
+    margin: 6px 0 0;
+    overflow-wrap: anywhere;
+} */
+
+
+/* Search Result - Full Width */
+.search-result {
+    grid-column: 1 / -1;
+    width: 100%;
+    box-sizing: border-box;
+    justify-self: stretch;
+    display: block;
+
+    margin-top: 12px;
+    padding: 15px;
+
+    background: #182538;
+    border: 1px solid #526176;
+    border-radius: 8px;
+}
+
+.search-result h4 {
+    margin: 0 0 12px;
+    color: #e87935;
+}
+
+.search-result strong {
+    color: #f1f5f9;
+}
+
+.search-result p {
+    color: #aab7c7;
+    font-size: 13px;
+    margin: 6px 0 0;
+    overflow-wrap: anywhere;
+}
