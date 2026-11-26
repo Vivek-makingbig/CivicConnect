@@ -58,24 +58,49 @@ const createReport = async (req, res) => {
     // Get reporting user's email
     await report.populate("reportedBy", "userName email");
 
+
+
     // Send confirmation email
+    //     if (report.reportedBy?.email) {
+    //       await sendEmail(
+    //         report.reportedBy.email,
+    //         "Your disaster report has been received",
+    //         `Hello ${report.reportedBy.userName},
+
+    // Your disaster report has been successfully submitted to LocalConnect.
+
+    // Report Details:
+    // Disaster Type: ${disasterType}
+    // Location: ${location}
+    // Description: ${description}
+    // Status: Pending
+
+    // Our team will review your report and take the necessary action.
+
+    // Thank you for helping make your community safer.
+
+    // Team LocalConnect`
+    //       );
+    //     }
+
+
+
+    // Send OTP email
     if (report.reportedBy?.email) {
       await sendEmail(
         report.reportedBy.email,
-        "Your disaster report has been received",
+        "LocalConnect - Disaster Report OTP",
         `Hello ${report.reportedBy.userName},
 
-Your disaster report has been successfully submitted to LocalConnect.
+Your disaster report has been successfully submitted.
 
-Report Details:
+Your verification OTP is: ${otp}
+
 Disaster Type: ${disasterType}
 Location: ${location}
-Description: ${description}
-Status: Pending
 
-Our team will review your report and take the necessary action.
-
-Thank you for helping make your community safer.
+Please share this OTP with the authorized rescue team
+only after the rescue operation is completed.
 
 Team LocalConnect`
       );
@@ -88,7 +113,6 @@ Team LocalConnect`
 
     res.status(201).json({
       message: "Disaster reported successfully",
-      otp,
       report: reportData
     });
 
