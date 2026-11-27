@@ -2,6 +2,7 @@ const ReportDisaster = require("../models/user/reportDisaster");
 const cloudinary = require("../config/cloudinary");
 const crypto = require("crypto");
 const sendEmail = require("../services/emailService");
+const User = require("../models/auth/User");
 
 // Create Report
 const createReport = async (req, res) => {
@@ -219,14 +220,29 @@ const getReportStats = async (req, res) => {
 // };
 
 // Get reports with team assigned / in progress status
+// const getAssignedMissions = async (req, res) => {
+//   try {
+//     const missions = await ReportDisaster.find({
+//       status: ["Team assigned", "In progress"]
+//     }).select("-otpEncrypted -otpHash -otpExpiresAt -otpAttempts -otpVerified");
+
+//     res.json(missions);
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+
 const getAssignedMissions = async (req, res) => {
   try {
     const missions = await ReportDisaster.find({
-      status: ["Team assigned", "In progress"]
+      assignedRescuer: req.User.id,
+      status: { $in: ["Team assigned", "In progress"] }
     }).select("-otpEncrypted -otpHash -otpExpiresAt -otpAttempts -otpVerified");
 
     res.json(missions);
   } catch (error) {
+    console.error("Get assigned missions error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -247,6 +263,61 @@ const getAssignedMissions = async (req, res) => {
 //   }
 // };
 
+//Assign particular report to a rescuer
+const assignRescuer = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const { id } = req.params;
+
+        if (!email) {
+            return res.status(400).json({
+                message: "Rescuer email is required"
+            });
+        }
+
+        const rescuer = await User.findOne({
+            email: email.trim().toLowerCase(),
+            role: "rescue"
+        });
+
+        if (!rescuer) {
+            return res.status(404).json({
+                message: "No rescuer found with this email"
+            });
+        }
+
+        const report = await ReportDisaster.findById(id);
+
+        if (!report) {
+            return res.status(404).json({
+                message: "Report not found"
+            });
+        }
+
+        if (report.status === "Resolved") {
+            return res.status(400).json({
+                message: "Cannot assign a resolved report"
+            });
+        }
+
+        report.assignedRescuer = rescuer._id;
+        report.status = "Team assigned";
+
+        await report.save();
+
+        return res.status(200).json({
+            message: "Rescuer assigned successfully",
+            report
+        });
+
+    } catch (error) {
+        console.error("Assign rescuer error:", error);
+
+        return res.status(500).json({
+            message: "Server error while assigning rescuer"
+        });
+    }
+};
 
 // Get All Reports (for admin)
 const getAllReports = async (req, res) => {
@@ -635,6 +706,7 @@ module.exports = {
   handleVote,
   getReportStats,
   getAssignedMissions,
+  assignRescuer, 
   getAllReports,
   getMyReports,
   updateReportStatus,

@@ -39,18 +39,18 @@ function AssignedMissions() {
     <div className="card">
       <h3>Assigned Missions</h3>
 
-      <div className="notice-container">
+      {/* <div className="notice-container">
         {missions.map((m) => (
           <div className="mission-item" key={m._id}>
 
-            {/* Mission Details */}
+         
             <div className="mission-details">
               <p>Issue: {m.disasterType}</p>
               <p>Location: {m.location}</p>
               <p>Date: {new Date(m.createdAt).toLocaleDateString()}</p>
             </div>
 
-            {/* OTP Section - Second Line */}
+           
             <div className="otp-section">
               <label>Enter OTP to mark as completed:</label>
 
@@ -74,7 +74,49 @@ function AssignedMissions() {
 
           </div>
         ))}
+      </div> */}
+
+
+      <div className="notice-container">
+  {missions.length === 0 ? (
+    <p className="no-missions">
+      No assigned missions
+    </p>
+  ) : (
+    missions.map((m) => (
+      <div className="mission-item" key={m._id}>
+
+        <div className="mission-details">
+          <p>Issue: {m.disasterType}</p>
+          <p>Location: {m.location}</p>
+          <p>Date: {new Date(m.createdAt).toLocaleDateString()}</p>
+        </div>
+
+        <div className="otp-section">
+          <label>Enter OTP to mark as completed:</label>
+
+          <input
+            type="text"
+            placeholder="Enter 4-digit OTP"
+            maxLength={4}
+            value={otpValues[m._id] || ""}
+            onChange={(e) =>
+              setOtpValues({
+                ...otpValues,
+                [m._id]: e.target.value.replace(/\D/g, "")
+              })
+            }
+          />
+
+          <button onClick={() => handleComplete(m._id)}>
+            Submit
+          </button>
+        </div>
+
       </div>
+    ))
+  )}
+</div>
     </div>
 
   );

@@ -2,17 +2,28 @@ const express = require("express");
 const router = express.Router();
 
 const {
- createAlert,getAllAlerts
+    createAlert,
+    getAllAlerts
 } = require("../controllers/sendAlertController");
 
-const {authMiddleware} = require("../controllers/auth-controller");
+const {
+    authMiddleware,
+    checkRole
+} = require("../controllers/auth-controller");
 
-// Admin sends alert message
-router.post("/createalert", authMiddleware, createAlert);
+// Admin creates a notice
+router.post(
+    "/createalert",
+    authMiddleware,
+    checkRole("admin"),
+    createAlert
+);
 
-// User can see all alerts
-router.get("/allalerts", authMiddleware, getAllAlerts);
-
-
+// Any logged-in user can view notices
+router.get(
+    "/allalerts",
+    authMiddleware,
+    getAllAlerts
+);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/auth/User');
+const ReportDisaster = require('../models/user/reportDisaster');
 
 // 1. Add a new rescuer
 const addRescuer = async (req, res) => {
@@ -43,19 +44,77 @@ const addRescuer = async (req, res) => {
 
 
 // 2. Get all rescuers
+// const getAllRescuers = async (req, res) => {
+//     try {
+//         const rescuers = await User.find({ role: 'rescue' })
+//             .select('-password')
+//             .sort({ createdAt: -1 });
+
+//         return res.status(200).json({
+//             success: true,
+//             rescuers
+//         });
+
+//     } catch (e) {
+//         console.log(e.message);
+//         return res.status(500).json({
+//             success: false,
+//             message: "Error while fetching rescuers"
+//         });
+//     }
+// };
+
+// 2. Get all rescuers with their active mission count
 const getAllRescuers = async (req, res) => {
     try {
         const rescuers = await User.find({ role: 'rescue' })
             .select('-password')
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .lean();
+
+        const missionCounts = await ReportDisaster.aggregate([
+            {
+                $match: {
+                    assignedRescuer: { $ne: null },
+                    status: {
+                        $in: ['Team assigned', 'In progress']
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: '$assignedRescuer',
+                    activeMissions: { $sum: 1 }
+                }
+            }
+        ]);
+
+        const countMap = {};
+
+        missionCounts.forEach((mission) => {
+            countMap[mission._id.toString()] =
+                mission.activeMissions;
+        });
+
+        const rescuersWithMissions = rescuers.map((rescuer) => {
+            const count =
+                countMap[rescuer._id.toString()] || 0;
+
+            return {
+                ...rescuer,
+                activeMissions: count,
+                availability: count === 0 ? 'Free' : 'Busy'
+            };
+        });
 
         return res.status(200).json({
             success: true,
-            rescuers
+            rescuers: rescuersWithMissions
         });
 
     } catch (e) {
         console.log(e.message);
+
         return res.status(500).json({
             success: false,
             message: "Error while fetching rescuers"
@@ -65,12 +124,42 @@ const getAllRescuers = async (req, res) => {
 
 
 // 3. Get rescuer by email
+// const getRescuerByEmail = async (req, res) => {
+//     const { email } = req.params;
+
+//     try {
+//         const rescuer = await User.findOne({
+//             email: email.toLowerCase(),
+//             role: 'rescue'
+//         }).select('-password');
+
+//         if (!rescuer) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: "Rescuer not found"
+//             });
+//         }
+
+//         return res.status(200).json({
+//             success: true,
+//             rescuer
+//         });
+
+//     } catch (e) {
+//         console.log(e.message);
+//         return res.status(500).json({
+//             success: false,
+//             message: "Error while fetching rescuer"
+//         });
+//     }
+// };
+
 const getRescuerByEmail = async (req, res) => {
     const { email } = req.params;
 
     try {
         const rescuer = await User.findOne({
-            email: email.toLowerCase(),
+            email: email.trim().toLowerCase(),
             role: 'rescue'
         }).select('-password');
 
@@ -81,13 +170,27 @@ const getRescuerByEmail = async (req, res) => {
             });
         }
 
+        const activeMissions = await ReportDisaster.countDocuments({
+            assignedRescuer: rescuer._id,
+            status: {
+                $in: ['Team assigned', 'In progress']
+            }
+        });
+
+        const rescuerData = {
+            ...rescuer.toObject(),
+            activeMissions,
+            availability: activeMissions === 0 ? 'Free' : 'Busy'
+        };
+
         return res.status(200).json({
             success: true,
-            rescuer
+            rescuer: rescuerData
         });
 
     } catch (e) {
         console.log(e.message);
+
         return res.status(500).json({
             success: false,
             message: "Error while fetching rescuer"

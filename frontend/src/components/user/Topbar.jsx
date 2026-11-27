@@ -19,20 +19,7 @@ const navigate = useNavigate();
      }
     }
   return (
-    // <div className="topbar">
-
-    //   <div className="welcome">
-    //     <h3>Logo</h3>
-    //     <h2>Report incidents and stay updated with emergency alerts.</h2>
-    //   </div>
-
-    //   <button className="logout-btn" onClick={handleLogout}>
-    //     Logout
-    //   </button>
-
-    // </div>
-
-
+   
 <div className="topbar">
 
   <div className="welcome">

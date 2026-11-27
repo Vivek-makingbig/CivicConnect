@@ -53,21 +53,21 @@ function HowItWorks() {
     <div className="how-page">
 
 
-{/* How It Works Navbar */}
-<nav className="how-navbar">
-  <div className="how-logo">
-    Civic<span>Connect</span>
-  </div>
+      {/* How It Works Navbar */}
+      <nav className="how-navbar">
+        <div className="how-logo">
+          Local<span>Connect</span>
+        </div>
 
-  <Link to="/" className="how-home-link">
-    ← Back to Home
-  </Link>
-</nav>
+        <Link to="/" className="how-home-link">
+          ← Back to Home
+        </Link>
+      </nav>
 
 
       {/* Hero Section */}
       <section className="how-hero">
-        <span className="how-eyebrow">CIVICCONNECT | OUR PROCESS</span>
+        <span className="how-eyebrow">LOCALCONNECT | OUR PROCESS</span>
 
         <h1>
           From Reporting Problems
@@ -90,7 +90,7 @@ function HowItWorks() {
       <section className="how-mission">
         <div className="mission-heading">
           <span>OUR PURPOSE</span>
-          <h2>Why CivicConnect Exists</h2>
+          <h2>Why LocalConnect Exists</h2>
         </div>
 
         <div className="mission-content">
@@ -101,7 +101,7 @@ function HowItWorks() {
           </p>
 
           <p>
-            CivicConnect aims to bridge this gap by providing a
+            LocalConnect aims to bridge this gap by providing a
             common platform where citizens can report local issues,
             support community reports and follow their progress.
           </p>
@@ -156,7 +156,7 @@ function HowItWorks() {
           <span>WORKING TOGETHER</span>
           <h2>Everyone Has a Role to Play</h2>
           <p>
-            CivicConnect brings citizens and administrators
+            LocalConnect brings citizens and administrators
             together to make local problem reporting more effective.
           </p>
         </div>

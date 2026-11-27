@@ -1,36 +1,62 @@
-const  sendAlert= require('../models/admin/sendAlert'); 
 
+const sendAlert = require('../models/admin/sendAlert');
 
-// Create a new alert
+// Create a new notice
 const createAlert = async (req, res) => {
     try {
         const { alertMessage } = req.body;
-        const district_admin = req.user.district; 
 
-        const newAlert = await sendAlert.create({ 
-            alertMessage, 
-            district: district_admin 
+        if (!alertMessage || !alertMessage.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Notice message is required"
+            });
+        }
+
+        const newNotice = await sendAlert.create({
+            alertMessage: alertMessage.trim()
         });
 
-        res.status(201).json(newAlert);
+        return res.status(201).json({
+            success: true,
+            message: "Notice published successfully",
+            notice: newNotice
+        });
 
     } catch (error) {
-        console.log("Error occured while creating alert message");
-        console.log(error.message);
-        res.status(500).json({ error: error.message });
+        console.log("Error while creating notice:", error.message);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to publish notice"
+        });
     }
 };
 
-// Get all alerts
+
+// Get all notices for logged-in users
 const getAllAlerts = async (req, res) => {
     try {
-        const userDistrict = req.user.district;
-        const alerts = await sendAlert.find({district: userDistrict}).sort({ createdAt: -1 }); // Newest first
-        res.status(200).json(alerts);
+        const notices = await sendAlert
+            .find()
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            notices
+        });
+
     } catch (error) {
-        console.log("Error occured while displaying the alert messages")
-        res.status(500).json({ error: error.message });
+        console.log("Error while fetching notices:", error.message);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch notices"
+        });
     }
 };
 
-module.exports = {createAlert,getAllAlerts};
+module.exports = {
+    createAlert,
+    getAllAlerts
+};

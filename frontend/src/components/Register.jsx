@@ -25,7 +25,7 @@ function Register() {
   }
   return (
     <>
-     <h1 id="Welcome_register">Welcome to disaster relief</h1>
+     <h1 id="Welcome_register">Welcome to Local connect</h1>
  
       <form className='signup-container' onSubmit={handleSubmit}>
   <div >

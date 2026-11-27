@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from "react";
-import { getReportStats } from "../api"; 
+import React, { useState, useEffect } from "react";
+import { getReportStats } from "../api";
 import { Link } from 'react-router-dom';
 
 import "../styles/home.css";
@@ -10,11 +10,11 @@ import logo from '../assets/logo.jpg';
 function Home() {
 
   {/* Get statistics  */ }
- const [stats, setStats] = useState({ total: 0, solved: 0, pending: 0 });
+  const [stats, setStats] = useState({ total: 0, solved: 0, pending: 0 });
 
-useEffect(() => {
-  getReportStats().then((res) => setStats(res.data));
-}, []);
+  useEffect(() => {
+    getReportStats().then((res) => setStats(res.data));
+  }, []);
 
 
 
@@ -27,12 +27,8 @@ useEffect(() => {
         {/* <img src={logo} id="logo" alt="Logo" ></img> */}
 
         <div id="logo">
-          Civic<span>Connect</span>
+          Local<span>Connect</span>
         </div>
-        {/* <ul className="Navbar-items">
-          <li>How it works</li>
-        </ul> */}
-
 
         <ul className="Navbar-items">
           <li>
@@ -52,11 +48,11 @@ useEffect(() => {
       <section className="hero">
 
         <div id="hero-container-writing">
-          <h1>Report Disasters. Save Lives.</h1>
+          <h1>Report Local Problems. Make a Difference.</h1>
 
           <p>
-            A platform where citizens can report disasters and rescue teams
-            respond quickly to emergencies.
+            A platform where citizens can report local problems and
+            authorities can take action to improve their communities.
           </p>
         </div>
 
@@ -79,16 +75,16 @@ useEffect(() => {
             <h2>Make Your Community Better</h2>
 
             <p>
-              Every problem deserves attention. Report local disasters
-              and issues in your area, support verified reports, and
-              help authorities take action.
+              Every local problem deserves attention. Report issues in your area,
+              support verified reports, and help authorities take action
+              to build a better community.
             </p>
 
             <h3>Your Voice Can Make a Difference!</h3>
 
-            <button onClick={() => navigate('/report')}>
+            {/* <button onClick={() => navigate('/report')}>
               Report a Problem
-            </button>
+            </button> */}
           </div>
 
         </div>
@@ -196,25 +192,24 @@ useEffect(() => {
 
       {/* Footer */}
 
-      {/* <footer className="landing-footer">
-        <p>Disaster Management System © 2026</p>
-      </footer> */}
       <footer className="landing-footer">
         <div className="footer-content">
 
           <div className="footer-left">
-            <h3>Disaster Management</h3>
-            <p>Helping people report disasters and get help quickly.</p>
+            <h3>LocalConnect</h3>
+            <p>
+              Connecting citizens to report local problems and improve their communities.
+            </p>
           </div>
 
-          <div className="footer-links">
+          {/* <div className="footer-links">
             <h4>Quick Links</h4>
             <ul>
               <li><a href="#">Dashboard</a></li>
               <li><a href="#">Report</a></li>
               <li><a href="#">Resources</a></li>
             </ul>
-          </div>
+          </div> */}
 
           <div className="footer-contact">
             <h4>Contact</h4>
@@ -225,7 +220,7 @@ useEffect(() => {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 Disaster Management System</p>
+          <p>© 2026 Local Problems Management System</p>
         </div>
       </footer>
     </div>

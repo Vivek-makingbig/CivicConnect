@@ -31,14 +31,14 @@ function ReportDisaster() {
       // alert("Disaster reported successfully");
       const response = await reportDisaster(formData);
       setOtp(response.data.otp);
-      alert("Disaster reported successfully. Save your OTP.");
+      alert("Problem reported successfully. Save your OTP.");
       setdisasterType("");
       setlocation("");
       setdescription("");
       setImage(null);
       setImagePreview("");
     } catch (error) {
-      alert("Error occured while reporting disaster");
+      alert("Error occured while reporting problem");
       console.log(error.message);
     }
   }
@@ -81,16 +81,24 @@ function ReportDisaster() {
   return (
     <div className="card" >
 
-      <h3>Report Disaster</h3>
+      <h3>Report Local problems</h3>
 
       <form onSubmit={handleSubmit}>
 
         <select id="disaster-type" value={disasterType} onChange={(e) => setdisasterType(e.target.value)}>
-          <option value="">Select Disaster Type</option>
-          <option>Flood</option>
-          <option>Fire</option>
-          <option>Earthquake</option>
-          <option>Accident</option>
+          <option value="">Select Problem Type</option>
+          <option>Road and Pothole Issue</option>
+          <option>Electricity Issue</option>
+          <option>Water Supply Issue</option>
+          <option>Drainage and Sewage Issue</option>
+          <option>Garbage and Waste Management</option>
+          <option>Streetlight Issue</option>
+          <option>Traffic and Road Safety</option>
+          <option>Public Property Damage</option>
+          <option>Waterlogging and Flooding</option>
+          <option>Tree and Fallen Branch Issue</option>
+          <option>Noise Pollution</option>
+          <option>Other</option>
         </select>
 
         <input id="location" type="text" value={location} onChange={(e) => setlocation(e.target.value)} placeholder="Location / Area" />

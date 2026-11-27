@@ -481,33 +481,6 @@
 
 
 
-/* rescuer search  */
-/* .search-result {
-    grid-column: 1 / -1;
-    margin-top: 12px;
-    padding: 15px;
-    background: #182538;
-    border: 1px solid #526176;
-    border-radius: 8px;
-}
-
-.search-result h4 {
-    margin: 0 0 12px;
-    color: #e87935;
-}
-
-.search-result strong {
-    color: #f1f5f9;
-}
-
-.search-result p {
-    color: #aab7c7;
-    font-size: 13px;
-    margin: 6px 0 0;
-    overflow-wrap: anywhere;
-} */
-
-
 /* Search Result - Full Width */
 .search-result {
     grid-column: 1 / -1;

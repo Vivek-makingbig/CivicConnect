@@ -329,32 +329,32 @@ function ManageRescuers() {
     };
 
     // Search rescuer by email
-   const handleSearch = async (e) => {
-    e.preventDefault();
+    const handleSearch = async (e) => {
+        e.preventDefault();
 
-    if (!searchEmail.trim()) {
-        setMessage("Please enter a rescuer email");
+        if (!searchEmail.trim()) {
+            setMessage("Please enter a rescuer email");
+            setSearchedRescuer(null);
+            return;
+        }
+
+        setLoading(true);
+        setMessage("");
         setSearchedRescuer(null);
-        return;
-    }
 
-    setLoading(true);
-    setMessage("");
-    setSearchedRescuer(null);
+        try {
+            const response = await getRescuerByEmail(searchEmail.trim());
 
-    try {
-        const response = await getRescuerByEmail(searchEmail.trim());
+            setSearchedRescuer(response.data.rescuer);
 
-        setSearchedRescuer(response.data.rescuer);
-
-    } catch (error) {
-        setMessage(
-            error.response?.data?.message || "Rescuer not found"
-        );
-    } finally {
-        setLoading(false);
-    }
-};
+        } catch (error) {
+            setMessage(
+                error.response?.data?.message || "Rescuer not found"
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // Delete rescuer
     const handleDelete = async (email) => {
@@ -455,30 +455,32 @@ function ManageRescuers() {
             {/* Search Rescuer */}
             <form onSubmit={handleSearch} className="rescuer-search">
 
-    <h4>Search Rescuer</h4>
+                <h4>Search Rescuer</h4>
 
-    <input
-        type="email"
-        placeholder="Enter rescuer email"
-        value={searchEmail}
-        onChange={(e) => setSearchEmail(e.target.value)}
-    />
+                <input
+                    type="email"
+                    placeholder="Enter rescuer email"
+                    value={searchEmail}
+                    onChange={(e) => setSearchEmail(e.target.value)}
+                />
 
-    <button type="submit" disabled={loading}>
-        {loading ? "Searching..." : "Search"}
-    </button>
+                <button type="submit" disabled={loading}>
+                    {loading ? "Searching..." : "Search"}
+                </button>
 
-    {searchedRescuer && (
-        <div className="search-result">
-            <h4>Search Result</h4>
+                {searchedRescuer && (
+                    <div className="search-result">
+                        <h4>Search Result</h4>
 
-            <strong>{searchedRescuer.userName}</strong>
-            <p>{searchedRescuer.email}</p>
-            <p>District: {searchedRescuer.district}</p>
-        </div>
-    )}
+                        <strong>{searchedRescuer.userName}</strong>
+                        <p>{searchedRescuer.email}</p>
+                        <p>District: {searchedRescuer.district}</p>
+                        <p>Active Missions: {searchedRescuer.activeMissions ?? 0}</p>
+                        <p>Availability: {searchedRescuer.availability || "Free"}</p>
+                    </div>
+                )}
 
-</form>
+            </form>
 
             {/* Message */}
             {message && (
@@ -529,9 +531,13 @@ function ManageRescuers() {
                                         </strong>
 
                                         <p>{rescuer.email}</p>
+                                        <p>District: {rescuer.district}</p>
+                                        <p>
+                                            Active Missions: {rescuer.activeMissions ?? 0}
+                                        </p>
 
                                         <p>
-                                            District: {rescuer.district}
+                                            Availability: {rescuer.availability || "Free"}
                                         </p>
 
                                     </div>

@@ -83,19 +83,6 @@
 } 
 
 
-
-
-
-
-/* Logo image  */
-/* #logo {
-  width: 110px;
-  height: 35px;
-  object-fit: contain;
-  display: block;
-  opacity: 1;
-} */
-
 #logo {
   font-family: Arial, sans-serif;
   font-size: 27px;
@@ -108,8 +95,6 @@
 #logo span {
   color: #f97316;
 }
-
-
 
 
 /* Hero Section */
@@ -319,6 +304,7 @@
 .emergency {
   padding: 50px 30px;
   background: #111827;
+ 
   color: white;
   text-align: center;
 }

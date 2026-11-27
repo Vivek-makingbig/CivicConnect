@@ -23,6 +23,12 @@ const reportDisasterSchema = new mongoose.Schema({
     ref: "User"
   },
 
+  assignedRescuer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    default: null
+  },
+
   status: {
     type: String,
     enum: ["Pending", "In progress", "Team assigned", "Resolved"],
@@ -46,7 +52,7 @@ const reportDisasterSchema = new mongoose.Schema({
 
 
 
-    // OTP verification system
+  // OTP verification system
   otpEncrypted: {
     type: String,
     default: null

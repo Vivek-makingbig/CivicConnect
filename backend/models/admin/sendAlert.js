@@ -5,12 +5,6 @@ const sendAlertSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
-    },
-    district: {
-        type: String,
-        required: true,
-        trim: true,
-        index: true   // ✅ faster filtering
     }
 }, { timestamps: true });
 

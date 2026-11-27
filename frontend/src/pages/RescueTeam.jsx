@@ -22,11 +22,7 @@ function RescueTeam() {
 
             <AssignedMissions />
 
-            {/* <UpdateRescueStatus />
-
-            <NearbyDisasters />
-
-            <Notifications /> */}
+         
 
           </div>
 

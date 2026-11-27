@@ -30,6 +30,10 @@ export const getReportStats = () => API.get("/report/stats");
 //Get all disaster reports for admin
 export const getAllReports = ()=>API.get('/report/all');
 
+// Admin: Assign report to rescuer by email
+export const assignRescuer = (id, email) =>
+  API.patch(`/report/assign/${id}`, { email });
+
 // get reports with status team assigned / in progress
 export const getAssignedMissions = () => API.get("/report/assigned");
 

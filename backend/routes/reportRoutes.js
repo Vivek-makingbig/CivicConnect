@@ -9,11 +9,12 @@ const {
   getAllReports,
   getMyReports,
   updateReportStatus,
-   deleteReport,
-     verifyOTP
+  deleteReport,
+  verifyOTP,
+  assignRescuer
 } = require("../controllers/reportController");
 
-const {authMiddleware,checkRole} = require("../controllers/auth-controller");
+const { authMiddleware, checkRole } = require("../controllers/auth-controller");
 const upload = require("../middleware/upload");
 
 // User reports disaster
@@ -33,7 +34,7 @@ router.get("/assigned", authMiddleware, checkRole("rescue"), getAssignedMissions
 
 
 // Rescuer verifies OTP to complete mission
-router.post("/verify-otp/:id",authMiddleware,checkRole("rescue"),verifyOTP);
+router.post("/verify-otp/:id", authMiddleware, checkRole("rescue"), verifyOTP);
 
 // Admin can see all reports
 // router.get("/all", authMiddleware, getAllReports);
@@ -51,5 +52,9 @@ router.patch("/updatereport/:id", authMiddleware, checkRole("admin"), updateRepo
 //Admin can delete the report
 // router.delete("/deletereport/:id",authMiddleware, deleteReport);
 router.delete("/deletereport/:id", authMiddleware, checkRole("admin"), deleteReport);
+
+
+// Admin assigns a report to a rescuer by email
+router.patch("/assign/:id",authMiddleware,checkRole("admin"),assignRescuer);
 
 module.exports = router;

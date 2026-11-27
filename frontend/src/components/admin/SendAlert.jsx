@@ -20,23 +20,23 @@ function SendAlert() {
 
     
   }
-  return (
-    <div className="card">
+     return (
+        <div className="card">
+            <h3>Publish Notice</h3>
 
-      <h3>Send Emergency Alert</h3>
+            <form onSubmit={handleAlertMessage}>
+                <textarea
+                    value={alertMessage}
+                    onChange={(e) => setAlertMessage(e.target.value)}
+                    placeholder="Write a notice for all logged-in users"
+                />
 
-      <form onSubmit={handleAlertMessage}>
-
-        <textarea value={alertMessage}
-          onChange={(e) => setAlertMessage(e.target.value)} placeholder="Write emergency alert message"></textarea>
-          <input type="text" value={district} onChange={(e)=>setAlertDistrict(e.target.value)} placeholder="Enter district" />
-
-        <button type="submit"  >Send Alert</button>
-
-      </form>
-
-    </div>
-  );
+                <button type="submit">
+                    Publish Notice
+                </button>
+            </form>
+        </div>
+    );
 }
 
 export default SendAlert;
